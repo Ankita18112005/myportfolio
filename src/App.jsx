@@ -59,7 +59,7 @@ const App = () => {
       {!loading && (
         <>
           <Navbar />
-          <main className="w-full relative">
+          <main className="w-full relative overflow-x-hidden max-w-[100vw]">
             <Hero />
             <About />
             <Education />

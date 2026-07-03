@@ -153,15 +153,15 @@ const Footer = () => {
       <div className="w-full h-px bg-gradient-to-r from-transparent via-warm-brown/50 to-transparent" />
 
       {/* ── Main Footer Content ───────────────────────────────── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-[20px] md:px-12 pt-[40px] pb-[70px] md:pt-20 md:pb-12 hidden md:block">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[40px] md:gap-12 lg:gap-8">
           {/* Column 1 – Brand */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-1"
+            className="lg:col-span-1 flex flex-col items-center md:items-start text-center md:text-left"
           >
             <h3 className="font-heading text-4xl text-cream mb-1">
               A<span className="text-[var(--color-warm-brown)]">K</span>
@@ -174,7 +174,7 @@ const Footer = () => {
             </p>
 
             {/* Social Icons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center md:justify-start">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -198,11 +198,12 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * (groupIndex + 1) }}
+              className="flex flex-col items-center md:items-start text-center md:text-left"
             >
               <h4 className="font-heading text-lg text-cream/80 mb-6 tracking-widest">
                 {group.title}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-3 flex flex-col items-center md:items-start">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <a
@@ -224,28 +225,29 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col items-center md:items-start text-center md:text-left"
           >
             <h4 className="font-heading text-lg text-cream/80 mb-6 tracking-widest">
               Get in Touch
             </h4>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-sm text-cream/50">
+            <ul className="space-y-4 flex flex-col items-center md:items-start">
+              <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
                 <Mail size={14} className="text-[var(--color-warm-brown)] shrink-0" />
                 <a href="mailto:ankitakaranj@gmail.com" className="hover:text-cream transition-colors hover-target">
                   ankitakaranj@gmail.com
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-sm text-cream/50">
+              <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
                 <Phone size={14} className="text-[var(--color-warm-brown)] shrink-0" />
                 <a href="tel:+918250930522" className="hover:text-cream transition-colors hover-target">
                   +91 8250930522
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-sm text-cream/50">
+              <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
                 <MapPin size={14} className="text-[var(--color-warm-brown)] shrink-0" />
                 <span>Jhargram, West Bengal</span>
               </li>
-              <li className="flex items-center gap-3 text-sm text-cream/50">
+              <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
                 <Globe size={14} className="text-[var(--color-warm-brown)] shrink-0" />
                 <a href="https://parot.dev" target="_blank" rel="noreferrer" className="hover:text-cream transition-colors hover-target">
                   parot.dev
@@ -256,8 +258,87 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* ═══ MOBILE ═══ */}
+      <div className="relative z-10 w-full px-[20px] py-[40px] md:hidden flex flex-col gap-[32px]">
+        {/* Brand & Social */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center text-center"
+        >
+          <h3 className="font-heading text-3xl text-cream mb-2 flex items-center justify-center gap-2">
+            A<span className="text-[var(--color-warm-brown)]">K</span> 
+            <span className="text-cream/20 font-inter mx-1 font-light">|</span> 
+            <span className="text-[14px] text-cream/70 uppercase tracking-[0.2em] font-medium mt-[2px] font-inter">Ankita Karan</span>
+          </h3>
+          <p className="text-cream/50 text-[12px] leading-relaxed max-w-[280px] mx-auto mb-5 font-inter">
+            Frontend Developer & UI/UX Designer crafting immersive digital experiences.
+          </p>
+          <div className="flex gap-4 justify-center">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={social.label}
+                className="w-[36px] h-[36px] rounded-full border border-cream/15 flex items-center justify-center text-cream/50 hover:text-cream hover:border-[var(--color-warm-brown)] hover:bg-[var(--color-warm-brown)]/10 transition-colors"
+              >
+                <social.icon size={14} />
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Quick Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="flex flex-col items-center"
+        >
+          <h4 className="font-heading text-[13px] text-cream/80 mb-4 tracking-widest text-center uppercase">
+            Quick Links
+          </h4>
+          <div className="grid grid-cols-2 gap-x-12 gap-y-[10px] text-center">
+            <a href="#home" className="text-[12px] text-cream/50 font-inter hover:text-cream">Home</a>
+            <a href="#education" className="text-[12px] text-cream/50 font-inter hover:text-cream">Education</a>
+            <a href="#about" className="text-[12px] text-cream/50 font-inter hover:text-cream">About</a>
+            <a href="#experience" className="text-[12px] text-cream/50 font-inter hover:text-cream">Experience</a>
+            <a href="#skills" className="text-[12px] text-cream/50 font-inter hover:text-cream">Skills</a>
+            <a href="#certifications" className="text-[12px] text-cream/50 font-inter hover:text-cream">Certificates</a>
+            <a href="#projects" className="text-[12px] text-cream/50 font-inter hover:text-cream">Projects</a>
+            <a href="#contact" className="text-[12px] text-cream/50 font-inter hover:text-cream">Contact</a>
+          </div>
+        </motion.div>
+
+        {/* Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col items-center gap-[8px]"
+        >
+          <a href="mailto:ankitakaranj@gmail.com" className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter hover:text-cream">
+            <Mail size={12} className="text-[var(--color-warm-brown)]" />
+            <span>ankitakaranj@gmail.com</span>
+          </a>
+          <a href="tel:+918250930522" className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter hover:text-cream">
+            <Phone size={12} className="text-[var(--color-warm-brown)]" />
+            <span>+91 8250930522</span>
+          </a>
+          <div className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter">
+            <MapPin size={12} className="text-[var(--color-warm-brown)]" />
+            <span>Jhargram, West Bengal</span>
+          </div>
+        </motion.div>
+      </div>
+
       {/* ── Flickering Grid + Large Name ─────────────────────── */}
-      <div className="relative w-full h-44 md:h-56 mt-8">
+      <div className="relative w-full h-24 sm:h-32 md:h-56 mt-4 md:mt-8">
         {/* Gradient fade overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-transparent to-dark-text z-10 pointer-events-none" style={{ background: 'linear-gradient(to bottom, var(--color-dark-text) 0%, transparent 50%)' }} />
 
@@ -273,8 +354,8 @@ const Footer = () => {
         </div>
 
         {/* Large background name */}
-        <div className="absolute inset-0 flex items-end justify-center z-20 pointer-events-none pb-4">
-          <h2 className="font-heading text-[clamp(3rem,12vw,10rem)] text-cream/[0.04] leading-none tracking-widest select-none whitespace-nowrap">
+        <div className="absolute inset-0 flex items-end justify-center z-20 pointer-events-none pb-2 md:pb-4 overflow-hidden w-full">
+          <h2 className="font-heading text-[10vw] md:text-[clamp(3rem,12vw,10rem)] text-cream/[0.04] leading-none tracking-widest select-none whitespace-nowrap px-4">
             ANKITA KARAN
           </h2>
         </div>
@@ -282,11 +363,14 @@ const Footer = () => {
 
       {/* ── Bottom Bar ────────────────────────────────────────── */}
       <div className="relative z-10 border-t border-cream/10">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-cream/40 tracking-wide text-center md:text-left">
-            © {currentYear} Ankita Karan. Crafted with{' '}
-            <FaHeart className="inline text-[var(--color-warm-brown)] mx-0.5" size={10} />{' '}
-            All rights reserved.
+        <div className="max-w-7xl mx-auto px-[20px] md:px-12 py-[20px] md:py-6 flex flex-col md:flex-row items-center justify-between gap-[16px] md:gap-4">
+          <p className="text-[10px] md:text-xs text-cream/40 tracking-wider text-center md:text-left leading-relaxed font-inter">
+            <span className="md:hidden block">© {currentYear} Ankita Karan • Built with React & Next.js</span>
+            <span className="hidden md:inline">
+              © {currentYear} Ankita Karan. Crafted with{' '}
+              <FaHeart className="inline text-[var(--color-warm-brown)] mx-0.5" size={10} />{' '}
+              All rights reserved.
+            </span>
           </p>
 
           {/* Back to Top */}

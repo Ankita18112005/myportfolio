@@ -19,7 +19,7 @@ const skills = [
 ];
 
 // ── Background Particles Canvas ─────────────────────────────────────
-const ParticleField = ({ mousePos }) => {
+const ParticleField = ({ mousePos, isMobile }) => {
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
   const animRef = useRef(null);
@@ -39,7 +39,7 @@ const ParticleField = ({ mousePos }) => {
     window.addEventListener('resize', resize);
 
     // Create particles
-    const count = 60;
+    const count = isMobile ? 30 : 60;
     particlesRef.current = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.offsetWidth,
       y: Math.random() * canvas.offsetHeight,
@@ -93,7 +93,7 @@ const ParticleField = ({ mousePos }) => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animRef.current);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <canvas
@@ -104,7 +104,7 @@ const ParticleField = ({ mousePos }) => {
 };
 
 // ── Single Floating Orb ─────────────────────────────────────────────
-const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
+const SkillOrb = ({ skill, index, total, mousePos, containerRect, isMobile }) => {
   const orbRef = useRef(null);
   const posRef = useRef({
     x: 0,
@@ -119,8 +119,10 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
   const animRef = useRef(null);
   const initialized = useRef(false);
 
-  // Orb visual size based on skill "size" value
-  const orbSize = 80 + (skill.size / 100) * 60; // 80–140px
+  // Orb visual size based on screen width
+  const baseSize = isMobile ? 55 : 80;
+  const sizeMultiplier = isMobile ? 25 : 60;
+  const orbSize = baseSize + (skill.size / 100) * sizeMultiplier;
   const glowIntensity = skill.size / 100;
 
   // Initialize position
@@ -143,9 +145,8 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
   useEffect(() => {
     if (!containerRect || containerRect.width === 0) return;
 
-    const speed = 0.3 + Math.random() * 0.3;
-    const floatAmplitudeX = 30 + Math.random() * 40;
-    const floatAmplitudeY = 20 + Math.random() * 30;
+    const floatAmplitudeX = (isMobile ? 20 : 30) + Math.random() * (isMobile ? 30 : 40);
+    const floatAmplitudeY = (isMobile ? 15 : 20) + Math.random() * (isMobile ? 25 : 30);
     const floatSpeedX = 0.0003 + Math.random() * 0.0004;
     const floatSpeedY = 0.0004 + Math.random() * 0.0003;
     const phaseX = Math.random() * Math.PI * 2;
@@ -156,15 +157,12 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
       const w = containerRect.width;
       const h = containerRect.height;
 
-      // Organic floating movement
       const floatX = Math.sin(time * floatSpeedX + phaseX) * floatAmplitudeX;
       const floatY = Math.cos(time * floatSpeedY + phaseY) * floatAmplitudeY;
-
       let targetX = p.baseX + floatX;
       let targetY = p.baseY + floatY;
 
-      // Mouse repulsion
-      if (mousePos.current) {
+      if (!isMobile && mousePos.current) {
         const mx = mousePos.current.x;
         const my = mousePos.current.y;
         const dx = targetX - mx;
@@ -180,13 +178,12 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
       }
 
       // Soft boundary clamping
-      const padding = orbSize / 2 + 10;
+      const padding = orbSize / 2 + 2;
       targetX = Math.max(padding, Math.min(w - padding, targetX));
       targetY = Math.max(padding, Math.min(h - padding, targetY));
 
-      // Smooth lerp
-      p.x += (targetX - p.x) * 0.02;
-      p.y += (targetY - p.y) * 0.02;
+      p.x += (targetX - p.x) * (isMobile ? 0.04 : 0.02);
+      p.y += (targetY - p.y) * (isMobile ? 0.04 : 0.02);
 
       setPos({ x: p.x, y: p.y });
       animRef.current = requestAnimationFrame(animate);
@@ -194,7 +191,7 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
 
     animRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animRef.current);
-  }, [containerRect, mousePos, orbSize]);
+  }, [containerRect, mousePos, orbSize, isMobile]);
 
   const delay = index * 0.08;
 
@@ -261,9 +258,9 @@ const SkillOrb = ({ skill, index, mousePos, containerRect }) => {
 
         {/* Skill name */}
         <span
-          className="text-cream font-medium text-center leading-tight select-none px-2 relative z-10 transition-all duration-300"
+          className="text-cream font-medium text-center leading-tight select-none px-1 relative z-10 transition-all duration-300"
           style={{
-            fontSize: orbSize < 80 ? '0.6rem' : '0.7rem',
+            fontSize: orbSize < 75 ? '0.55rem' : '0.7rem',
             textShadow: isHovered
               ? '0 0 12px rgba(216,164,107,0.6)'
               : '0 0 6px rgba(216,164,107,0.2)',
@@ -283,12 +280,20 @@ const Skills = () => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const [containerRect, setContainerRect] = useState({ width: 0, height: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Track container size
   useEffect(() => {
@@ -308,6 +313,7 @@ const Skills = () => {
 
   // Track mouse position relative to container
   const handleMouseMove = useCallback((e) => {
+    if (isMobile) return;
     const container = containerRef.current;
     if (!container) return;
     const rect = container.getBoundingClientRect();
@@ -315,13 +321,15 @@ const Skills = () => {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     };
-  }, []);
+  }, [isMobile]);
+
+  const displaySkills = isMobile ? skills.slice(0, 7) : skills;
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-16 md:py-20 bg-dark-text z-10 overflow-hidden"
+      className={`relative bg-dark-text z-10 overflow-hidden flex flex-col justify-center ${isMobile ? 'min-h-[75vh] py-8' : 'min-h-screen py-16 md:py-20'}`}
       onMouseMove={handleMouseMove}
     >
       {/* ── Background Layers ──────────────────────────────── */}
@@ -344,7 +352,7 @@ const Skills = () => {
       />
 
       {/* ── Header ────────────────────────────────────────── */}
-      <div className="relative z-20 text-center mb-16 px-6">
+      <div className={`relative z-20 text-center px-6 ${isMobile ? 'mb-4 mt-4' : 'mb-16'}`}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -354,7 +362,7 @@ const Skills = () => {
           <p className="text-[var(--color-warm-brown)] text-xs uppercase tracking-[0.4em] mb-4 font-medium">
             What I Work With
           </p>
-          <h2 className="font-heading text-5xl md:text-7xl text-cream mb-4">
+          <h2 className={`font-heading text-cream mb-4 ${isMobile ? 'text-4xl' : 'text-5xl md:text-7xl'}`}>
             TECHNICAL <span className="text-warm-brown">ARSENAL</span>
           </h2>
           <motion.div
@@ -372,21 +380,23 @@ const Skills = () => {
       {/* ── Orbs Container ────────────────────────────────── */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6"
-        style={{ height: 'clamp(400px, 55vh, 650px)' }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-2 md:px-6"
+        style={{ height: isMobile ? '400px' : 'clamp(450px, 60vh, 700px)' }}
       >
         {/* Particle field */}
-        <ParticleField mousePos={mousePos} />
+        <ParticleField mousePos={mousePos} isMobile={isMobile} />
 
         {/* Skill Orbs */}
         {containerRect.width > 0 &&
-          skills.map((skill, index) => (
+          displaySkills.map((skill, index) => (
             <SkillOrb
               key={skill.name}
               skill={skill}
               index={index}
+              total={displaySkills.length}
               mousePos={mousePos}
               containerRect={containerRect}
+              isMobile={isMobile}
             />
           ))}
       </div>

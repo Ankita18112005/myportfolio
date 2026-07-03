@@ -42,7 +42,8 @@ const Education = () => {
         className="absolute top-[40%] left-[20%] w-[35vw] h-[35vw] bg-[#c9a77a]/10 rounded-full blur-[140px] pointer-events-none z-0"
       />
 
-      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 text-center">
+      {/* ═══ DESKTOP ═══ */}
+      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 text-center hidden md:block">
         <div className="mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
@@ -84,6 +85,51 @@ const Education = () => {
                     <p className="text-gold-accent font-medium tracking-wide text-sm mt-3">{edu.detail}</p>
                   )}
                 </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══ MOBILE ═══ */}
+      <div className="w-full mx-auto px-[20px] py-[30px] relative z-10 text-center md:hidden">
+        <div className="mb-[40px]">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-heading text-[30px] leading-[1.2] text-cream mb-[16px]"
+          >
+            ACADEMIC <br />
+            <span className="text-gold-accent">BACKGROUND</span>
+          </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "80px" }}
+            viewport={{ once: true }}
+            className="h-[2px] bg-warm-brown mx-auto"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[20px] w-full">
+          {education.map((edu, index) => (
+            <motion.div
+              key={`mob-edu-${index}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="relative w-full"
+            >
+              <div className="glass p-[20px] rounded-[24px] bg-white/5 border-white/10 flex flex-col items-center justify-center relative overflow-hidden">
+                <span className="px-[12px] py-[6px] bg-warm-brown/20 rounded-full text-[12px] font-medium tracking-widest text-warm-brown uppercase mb-[16px] inline-block">
+                  {edu.period}
+                </span>
+                <h3 className="font-heading text-[24px] text-cream mb-[8px] leading-tight">{edu.degree}</h3>
+                <h4 className="text-cream/60 font-medium tracking-wide uppercase text-[14px]">{edu.institution}</h4>
+                {edu.detail && (
+                  <p className="text-gold-accent font-medium tracking-wide text-[14px] mt-[8px]">{edu.detail}</p>
+                )}
               </div>
             </motion.div>
           ))}

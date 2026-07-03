@@ -167,11 +167,28 @@ const Certifications = () => {
     return diff;
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 40;
+    if (info.offset.x > swipeThreshold) {
+      prev();
+    } else if (info.offset.x < -swipeThreshold) {
+      next();
+    }
+  };
+
   return (
     <section
       id="certifications"
       ref={sectionRef}
-      className={`relative py-24 md:py-32 bg-dark-text overflow-hidden ${selectedCert ? 'z-[100]' : 'z-10'}`}
+      className={`relative py-[70px] md:py-32 bg-dark-text overflow-hidden px-[20px] md:px-0 ${selectedCert ? 'z-[100]' : 'z-10'}`}
     >
       {/* Huge vertical background text */}
       <div className="absolute font-heading text-[clamp(6rem,15vw,12rem)] leading-none font-normal select-none pointer-events-none whitespace-nowrap hidden lg:block text-cream/[0.03]" style={{ top: '15%', left: '-5%', transform: 'rotate(-90deg)', transformOrigin: 'left top' }}>CREDENTIALS</div>
@@ -180,33 +197,33 @@ const Certifications = () => {
       <div className="absolute top-[-5%] right-[-8%] w-[35vw] h-[35vw] bg-warm-brown/[0.04] rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-8%] left-[-5%] w-[30vw] h-[30vw] bg-gold-accent/[0.03] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="w-full md:max-w-7xl mx-auto md:px-12">
         {/* ── Header ───────────────────────────────────────── */}
-        <div ref={headingRef} className="text-center mb-20">
+        <div ref={headingRef} className="text-center mb-[40px] md:mb-20">
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-inter text-xs uppercase tracking-[0.25em] text-cream/50 mb-4 font-medium"
+            className="font-inter text-[14px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#b87333] md:text-cream/50 mb-[8px] md:mb-4 font-bold md:font-medium"
           >
             Verified Credentials
           </motion.p>
-
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-[16px] md:mb-6">
             <motion.h2
               initial={{ y: 80 }}
               animate={isHeadingInView ? { y: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-5xl md:text-7xl text-cream font-normal tracking-tight"
+              className="font-heading text-[30px] md:text-7xl text-cream font-normal tracking-tight leading-tight"
             >
               Certifications
             </motion.h2>
           </div>
+          <div className="h-[2px] bg-[#b87333]/40 mx-auto w-[80px] md:hidden" />
         </div>
 
-        {/* ── Stacked Carousel ─────────────────────────────── */}
-        <div className="relative flex items-center justify-center" style={{ height: '420px', perspective: '1200px' }}>
+        {/* ── 3D Carousel (Responsive) ───────────────────── */}
+        <div className="relative flex items-center justify-center" style={{ height: isMobile ? '380px' : '420px', perspective: '1200px' }}>
           <AnimatePresence initial={false} custom={dragDirection}>
             {certificates.map((cert, index) => {
               const offset = getOffset(index);
@@ -216,18 +233,20 @@ const Certifications = () => {
               if (absOffset > 2) return null;
 
               const isCenter = offset === 0;
-              const x = offset * 260;
-              const z = -absOffset * 80;
-              const rotateY = offset * -6;
-              const scale = 1 - absOffset * 0.08;
-              const opacity = 1 - absOffset * 0.3;
+              
+              const x = offset * (isMobile ? 220 : 260);
+              const z = -absOffset * (isMobile ? 60 : 80);
+              const rotateY = offset * (isMobile ? -4 : -6);
+              const scale = 1 - absOffset * (isMobile ? 0.12 : 0.08);
+              const opacity = 1 - absOffset * (isMobile ? 0.4 : 0.3);
 
               return (
                 <motion.div
                   key={cert.id}
                   className="absolute hover-target"
                   style={{
-                    width: '320px',
+                    width: isMobile ? '72vw' : '320px',
+                    maxWidth: '320px',
                     zIndex: 10 - absOffset,
                   }}
                   animate={{
@@ -238,14 +257,26 @@ const Certifications = () => {
                     opacity,
                   }}
                   transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-                  onClick={() => isCenter && setSelectedCert(cert)}
-                  whileHover={isCenter ? { y: -8, scale: 1.03 } : {}}
+                  drag={isCenter ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={isCenter ? handleDragEnd : undefined}
+                  onClick={() => {
+                    if (isCenter) setSelectedCert(cert);
+                    else {
+                      if (offset > 0) next();
+                      if (offset < 0) prev();
+                    }
+                  }}
+                  whileHover={isCenter && !isMobile ? { y: -8, scale: 1.03 } : {}}
+                  whileTap={isCenter && isMobile ? { scale: 0.98 } : {}}
                 >
                   <div
-                    className={`relative p-8 rounded-3xl transition-all duration-500 cursor-pointer ${
+                    className={`relative p-6 md:p-8 rounded-[24px] md:rounded-3xl transition-all duration-500 flex flex-col justify-center ${
                       isCenter ? 'cursor-pointer' : 'cursor-default'
                     }`}
                     style={{
+                      minHeight: isMobile ? '280px' : 'auto',
                       background: isCenter
                         ? '#2D2825'
                         : '#24201E',
@@ -260,7 +291,7 @@ const Certifications = () => {
                   >
                     {/* Category tag */}
                     <span
-                      className="inline-block px-3 py-1 rounded-full text-[10px] uppercase tracking-[0.15em] font-medium mb-6 font-inter"
+                      className="inline-block px-3 py-1 rounded-full text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-medium mb-4 md:mb-6 font-inter"
                       style={{
                         color: '#b87333',
                         background: 'rgba(184, 115, 51, 0.1)',
@@ -271,17 +302,17 @@ const Certifications = () => {
                     </span>
 
                     {/* Title */}
-                    <h3 className="font-heading text-2xl md:text-3xl text-cream font-normal leading-snug mb-3">
+                    <h3 className="font-heading text-xl md:text-3xl text-cream font-normal leading-snug mb-2 md:mb-3">
                       {cert.title}
                     </h3>
 
                     {/* Organization */}
-                    <p className="font-inter text-cream/60 text-xs font-medium uppercase tracking-widest mb-1">
+                    <p className="font-inter text-cream/60 text-[10px] md:text-xs font-medium uppercase tracking-widest mb-1">
                       {cert.org}
                     </p>
 
                     {/* Date */}
-                    <p className="font-inter text-gold-accent/80 font-medium tracking-wide text-xs mt-3 mb-8">
+                    <p className="font-inter text-gold-accent/80 font-medium tracking-wide text-[10px] md:text-xs mt-2 md:mt-3 mb-6 md:mb-8">
                       {cert.date}
                     </p>
 
@@ -290,7 +321,7 @@ const Certifications = () => {
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="flex items-center gap-2 text-warm-brown text-xs font-bold uppercase tracking-[0.15em] group"
+                        className="flex items-center gap-2 text-warm-brown text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] group"
                       >
                         <span>View Certificate</span>
                         <motion.span
@@ -304,7 +335,7 @@ const Certifications = () => {
 
                     {/* Decorative corner accent */}
                     <div
-                      className="absolute top-0 right-0 w-12 h-12 pointer-events-none"
+                      className="absolute top-0 right-0 w-10 h-10 md:w-12 md:h-12 pointer-events-none"
                       style={{
                         borderTop: '1px solid rgba(216,164,107,0.2)',
                         borderRight: '1px solid rgba(216,164,107,0.2)',
@@ -318,7 +349,9 @@ const Certifications = () => {
           </AnimatePresence>
         </div>
 
-        {/* ── Navigation ───────────────────────────────────── */}
+
+
+        {/* ── Navigation ────────────────────── */}
         <div className="flex items-center justify-center gap-6 mt-12">
           <button
             onClick={prev}
@@ -335,7 +368,7 @@ const Certifications = () => {
                 onClick={() => setActiveIndex(i)}
                 className="hover-target transition-all duration-300"
                 style={{
-                  width: i === activeIndex ? 24 : 6,
+                  width: i === activeIndex ? (isMobile ? 18 : 24) : 6,
                   height: 6,
                   borderRadius: 3,
                   background: i === activeIndex ? 'var(--color-warm-brown)' : 'rgba(255,255,255,0.1)',
@@ -353,7 +386,7 @@ const Certifications = () => {
         </div>
 
         {/* Counter */}
-        <p className="text-center mt-4 text-cream/30 text-xs tracking-wider font-medium">
+        <p className="text-center mt-4 text-cream/30 text-[10px] md:text-xs tracking-wider font-medium">
           {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </p>
       </div>

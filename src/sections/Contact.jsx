@@ -21,7 +21,8 @@ const Contact = () => {
     <section id="contact" className="py-16 md:py-20 relative bg-cream z-10 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-warm-brown/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      {/* ═══ DESKTOP ═══ */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 hidden md:block">
         <div className="text-center mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
@@ -103,7 +104,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-[40px] flex flex-col gap-8">
+            <form onSubmit={handleSubmit} className="glass p-6 sm:p-8 md:p-12 rounded-[40px] flex flex-col gap-8">
               <div className="relative z-0 group">
                 <input
                   type="text"
@@ -155,6 +156,95 @@ const Contact = () => {
             </form>
           </motion.div>
         </div>
+      </div>
+
+      {/* ═══ MOBILE ═══ */}
+      <div className="w-full mx-auto px-[20px] pt-[60px] pb-[20px] relative z-10 md:hidden flex flex-col">
+        <div className="text-center mb-[24px]">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-heading text-[32px] leading-tight text-dark-text mb-[12px]"
+          >
+            LET'S <span className="text-warm-brown">CONNECT</span>
+          </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "60px" }}
+            viewport={{ once: true }}
+            className="h-[2px] bg-gold-accent mx-auto"
+          />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center text-center w-full"
+        >
+          <h3 className="font-heading text-[22px] text-dark-text mb-[12px]">GET IN TOUCH</h3>
+          <p className="text-[13px] text-dark-text/70 mb-[32px] max-w-[280px] font-medium leading-relaxed">
+            I'm always open to discussing internship opportunities, UI/UX design projects, or frontend development collaborations.
+          </p>
+
+          <div className="flex flex-col gap-[16px] w-full">
+            {/* Email */}
+            <motion.div whileTap={{ scale: 0.98 }} className="flex items-center gap-[16px] bg-white/40 p-[16px] rounded-[20px] shadow-sm border border-dark-text/10 backdrop-blur-sm w-full">
+              <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center text-warm-brown shadow-sm flex-shrink-0">
+                <Mail size={18} />
+              </div>
+              <div className="flex flex-col text-left">
+                <p className="text-[10px] uppercase tracking-widest text-dark-text/50 font-bold mb-[2px]">Email</p>
+                <p className="text-[13px] text-dark-text font-bold">ankitakaranj@gmail.com</p>
+              </div>
+            </motion.div>
+
+            {/* Phone */}
+            <motion.div whileTap={{ scale: 0.98 }} className="flex items-center gap-[16px] bg-white/40 p-[16px] rounded-[20px] shadow-sm border border-dark-text/10 backdrop-blur-sm w-full">
+              <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center text-warm-brown shadow-sm flex-shrink-0">
+                <Phone size={18} />
+              </div>
+              <div className="flex flex-col text-left">
+                <p className="text-[10px] uppercase tracking-widest text-dark-text/50 font-bold mb-[2px]">Phone</p>
+                <p className="text-[13px] text-dark-text font-bold">+91 8250930522</p>
+              </div>
+            </motion.div>
+
+            {/* Location */}
+            <motion.div whileTap={{ scale: 0.98 }} className="flex items-center gap-[16px] bg-white/40 p-[16px] rounded-[20px] shadow-sm border border-dark-text/10 backdrop-blur-sm w-full">
+              <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center text-warm-brown shadow-sm flex-shrink-0">
+                <MapPin size={18} />
+              </div>
+              <div className="flex flex-col text-left">
+                <p className="text-[10px] uppercase tracking-widest text-dark-text/50 font-bold mb-[2px]">Location</p>
+                <p className="text-[13px] text-dark-text font-bold">Jhargram, West Bengal</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex justify-center gap-[16px] mt-[32px]">
+            <motion.a whileTap={{ scale: 0.9 }} href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-dark-text hover:text-white">
+              <FaGithub size={20} />
+            </motion.a>
+            <motion.a whileTap={{ scale: 0.9 }} href="https://www.linkedin.com/in/ankita-karan-440b65347" target="_blank" rel="noreferrer" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-[#0077b5] hover:text-white">
+              <FaLinkedin size={20} />
+            </motion.a>
+            <motion.a whileTap={{ scale: 0.9 }} href="mailto:ankitakaranj@gmail.com" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-warm-brown hover:text-white">
+              <Mail size={20} />
+            </motion.a>
+          </div>
+
+          {/* Button */}
+          <motion.a 
+            href="mailto:ankitakaranj@gmail.com"
+            whileTap={{ scale: 0.98 }}
+            className="w-full h-[54px] bg-dark-text text-cream rounded-[20px] font-bold tracking-widest uppercase text-[12px] mt-[24px] shadow-lg flex items-center justify-center transition-colors hover:bg-warm-brown"
+          >
+            Let's Work Together
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );

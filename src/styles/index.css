@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
 @theme {
   --color-warm-brown: #A66A3F;
@@ -15,8 +15,9 @@
 @layer base {
 
   html,
-  body {
-    @apply bg-cream text-dark-text font-body m-0 p-0 overflow-x-hidden;
+  body,
+  #root {
+    @apply bg-cream text-dark-text font-body m-0 p-0 overflow-x-hidden max-w-[100vw];
     cursor: none;
     /* We will use a custom cursor */
   }

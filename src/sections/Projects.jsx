@@ -72,6 +72,44 @@ const projects = [
   }
 ];
 
+const MobileProjectCard = ({ project }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="flex flex-col w-full bg-white/40 border border-dark-text/5 rounded-[24px] overflow-hidden shadow-sm"
+    >
+      <div className="w-full h-[160px] overflow-hidden bg-cream/50 relative">
+        <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div className="flex flex-col p-[16px]">
+        <div className="flex items-center gap-[8px] mb-[8px] text-[10px] font-bold text-[#8B0000] uppercase tracking-widest">
+          <span>{project.category}</span>
+          <span className="w-1 h-1 rounded-full bg-[#8B0000]/30"></span>
+          <span>{project.year}</span>
+        </div>
+        <h3 className="font-playfair text-[22px] font-bold text-[#332828] mb-[6px] leading-tight">{project.title}</h3>
+        <p className="font-inter text-[13px] text-[#8B0000] mb-[12px] font-medium leading-snug">{project.tagline}</p>
+        <div className="flex flex-wrap gap-[6px] mb-[16px]">
+          {project.tech.map((t, i) => (
+            <span key={i} className="px-[10px] py-[4px] bg-[#8B0000]/5 text-[#8B0000] rounded-full text-[11px] font-medium border border-[#8B0000]/10">
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="flex flex-col w-full mt-auto">
+          {project.demo && project.demo !== '#' && (
+            <a href={project.demo} target="_blank" rel="noreferrer" className="w-full py-[12px] bg-[#8B0000] text-white rounded-full text-center text-[13px] font-medium tracking-wide flex items-center justify-center transition-opacity hover:opacity-90">
+              Live Demo <ExternalLink size={14} className="ml-[8px]" />
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const ProjectCard = ({ project, index }) => {
   const cardRef = useRef(null);
 
@@ -140,10 +178,15 @@ const ProjectCard = ({ project, index }) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap gap-4 mt-auto">
-          {project.demo !== '#' && (
-            <a href={project.demo} target="_blank" rel="noreferrer" className="btn-project-primary">
-              Live Demo <ExternalLink size={16} />
+        <div className="flex flex-col sm:flex-row gap-4 mt-auto w-full">
+          {project.demo && project.demo !== '#' && (
+            <a href={project.demo} target="_blank" rel="noreferrer" className="btn-project-primary w-full sm:w-auto justify-center text-center">
+              Live Demo <ExternalLink size={16} className="inline ml-2" />
+            </a>
+          )}
+          {project.github && project.github !== '#' && (
+            <a href={project.github} target="_blank" rel="noreferrer" className="btn-project-secondary w-full sm:w-auto justify-center text-center px-6 py-3 border border-[#8B0000] text-[#8B0000] rounded-full font-medium tracking-wide hover:bg-[#8B0000] hover:text-cream transition-colors flex items-center">
+              GitHub <FaGithub size={16} className="inline ml-2" />
             </a>
           )}
         </div>
@@ -155,9 +198,9 @@ const ProjectCard = ({ project, index }) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-16 md:py-20 relative bg-cream z-20 overflow-hidden">
+    <section id="projects" className="pt-0 pb-16 md:py-20 relative bg-cream z-20 overflow-hidden">
 
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1100px] mx-auto px-6 md:px-12 relative z-10 hidden md:block">
 
         {/* Section Header */}
         <div className="mb-20 max-w-2xl">
@@ -206,6 +249,34 @@ const Projects = () => {
           </a>
         </motion.div>
 
+      </div>
+
+      {/* ═══ MOBILE ═══ */}
+      <div className="w-full mx-auto px-[20px] py-[30px] relative z-10 md:hidden">
+        <div className="mb-[40px] text-center">
+          <p className="font-inter text-[14px] uppercase tracking-[0.2em] text-[#8B0000] mb-[8px] font-bold">
+            MY WORK
+          </p>
+          <h2 className="font-playfair text-[30px] text-[#332828] font-bold mb-[16px] leading-tight">
+            Featured Projects
+          </h2>
+          <div className="h-[2px] bg-[#8B0000]/20 mx-auto w-[80px] mb-[24px]" />
+          <p className="font-inter text-[14px] text-[#332828]/80 leading-[1.6]">
+            Here are some of the projects I've built using modern web technologies. Each project focuses on solving real-world problems with clean design and great user experience.
+          </p>
+        </div>
+
+        <div className="flex flex-col w-full gap-[32px]">
+          {projects.map((project, index) => (
+            <MobileProjectCard key={`mob-proj-${project.id}`} project={project} />
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-[40px] w-full">
+          <a href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="w-full py-[16px] border-2 border-[#8B0000] text-[#8B0000] rounded-full text-center text-[16px] font-medium tracking-wide flex items-center justify-center">
+            View All Projects
+          </a>
+        </div>
       </div>
     </section>
   );

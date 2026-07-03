@@ -34,6 +34,7 @@ const Hero = () => {
   const tiltY = useSpring(rawY, { stiffness: 50, damping: 18 });
 
   const onMouseMove = useCallback((e) => {
+    if (window.innerWidth < 768) return; // Disable parallax on mobile
     const r = sectionRef.current?.getBoundingClientRect();
     if (!r) return;
     rawX.set(((e.clientY - r.top - r.height / 2) / r.height) * -6);
@@ -56,7 +57,7 @@ const Hero = () => {
     }),
   };
 
-  const fontSize = (s) => `clamp(2.8rem, ${9 * s}vw, ${10 * s}rem)`;
+  const fontSize = (s) => `clamp(1.8rem, ${10.5 * s}vw, ${10 * s}rem)`;
 
   return (
     <section
@@ -64,7 +65,7 @@ const Hero = () => {
       ref={sectionRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-[100dvh] min-h-[600px] md:h-auto md:min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{ background: 'linear-gradient(175deg, #F6F1E9 0%, #EFE6D8 60%, #E8D8C4 100%)' }}
     >
       {/* ═══ BG EFFECTS ═══ */}
@@ -79,10 +80,9 @@ const Hero = () => {
       <motion.div animate={{ y: [0, 8, 0], x: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 8, ease: 'easeInOut' }} className="absolute bottom-[22%] left-[12%] w-10 h-10 rounded-full border border-gold-accent/8 pointer-events-none" />
 
       {/* ═══ MAIN COMPOSITION ═══ */}
-      {/* This is the key: a flex row with LEFT-TEXT | CHARACTER | RIGHT-TEXT */}
       <motion.div
         style={{ opacity: fadeOut }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center justify-center gap-6 md:gap-0"
       >
         {/* ── Editorial Row: Letters + Avatar ──────────── */}
         <div className="relative flex items-center justify-center w-full">
@@ -135,7 +135,7 @@ const Hero = () => {
                 <motion.img
                   src="/download-removebg-preview.png"
                   alt="Ankita Karan"
-                  className="relative z-10 w-[220px] h-[280px] sm:w-[280px] sm:h-[340px] md:w-[340px] md:h-[420px] lg:w-[400px] lg:h-[490px] object-contain"
+                  className="relative z-10 w-[155px] h-[192px] sm:w-[195px] sm:h-[238px] md:w-[340px] md:h-[420px] lg:w-[400px] lg:h-[490px] object-contain"
                   style={{
                     transform: 'translateZ(15px)',
                     filter: [
@@ -195,15 +195,15 @@ const Hero = () => {
         </div>
 
         {/* ── Bottom Bar: Name + Role/Buttons ─────────── */}
-        <motion.div style={{ y: fgY }} className="relative z-30 w-full max-w-5xl mt-[-20px] md:mt-[-30px] px-2">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-5">
+        <motion.div style={{ y: fgY }} className="relative z-30 w-full max-w-5xl px-0 flex flex-col items-center justify-center md:mt-[-30px]">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-[16px] md:gap-5 w-full">
             {/* Name */}
-            <div>
+            <div className="flex flex-col items-center md:items-start gap-0">
               <motion.h2
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading text-3xl md:text-4xl lg:text-5xl leading-[0.95]"
+                className="font-heading text-[62px] sm:text-[68px] leading-[0.9] md:text-4xl lg:text-5xl"
                 style={{ color: 'var(--color-warm-brown)' }}
               >
                 ANKITA
@@ -212,7 +212,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading text-3xl md:text-4xl lg:text-5xl leading-[0.95]"
+                className="font-heading text-[62px] sm:text-[68px] leading-[0.9] md:text-4xl lg:text-5xl"
                 style={{ color: 'var(--color-warm-brown)' }}
               >
                 KARAN
@@ -224,16 +224,16 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3, duration: 0.7 }}
-              className="flex flex-col items-start md:items-end gap-3"
+              className="flex flex-col items-center md:items-end w-full md:w-auto mt-2 md:mt-0"
             >
-              <p className="text-dark-text/45 text-xs md:text-sm tracking-[0.2em] uppercase font-medium">
+              <p className="text-dark-text/80 text-[12px] sm:text-[13px] md:text-sm tracking-[0.2em] uppercase font-extrabold text-center md:text-left">
                 Frontend Developer & UI/UX Designer
               </p>
-              <div className="flex gap-3">
-                <a href="#projects" className="px-6 py-3 bg-dark-text text-cream rounded-full text-xs md:text-sm font-medium tracking-wide hover:bg-warm-brown transition-all duration-300 hover:scale-105 hover-target">
+              <div className="flex flex-row w-full justify-center md:justify-end gap-[14px] mt-[24px] md:mt-3">
+                <a href="#projects" className="w-[46%] max-w-[150px] px-2 py-[14px] md:py-3 bg-dark-text text-cream rounded-full text-[13px] md:text-sm font-medium tracking-wide hover:bg-warm-brown transition-all duration-300 hover:scale-105 hover-target text-center flex items-center justify-center leading-none shadow-sm">
                   View Projects
                 </a>
-                <a href="#contact" className="px-6 py-3 rounded-full text-xs md:text-sm font-medium tracking-wide border border-dark-text/20 text-dark-text hover:bg-dark-text hover:text-cream transition-all duration-300 hover:scale-105 hover-target">
+                <a href="#contact" className="w-[46%] max-w-[150px] px-2 py-[14px] md:py-3 rounded-full text-[13px] md:text-sm font-medium tracking-wide border border-dark-text/20 text-dark-text hover:bg-dark-text hover:text-cream transition-all duration-300 hover:scale-105 hover-target text-center flex items-center justify-center leading-none bg-transparent">
                   Contact
                 </a>
               </div>
@@ -242,26 +242,26 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* ── '26 Badge ──────────────────────────────────── */}
+      {/* ── '26 Badge (Desktop only to save mobile space) ── */}
       <motion.span
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.2, duration: 0.7 }}
-        className="absolute top-20 md:top-16 right-6 md:right-14 lg:right-20 z-30 font-heading text-4xl md:text-5xl lg:text-6xl pointer-events-none"
+        className="hidden md:block absolute top-20 right-14 lg:right-20 z-30 font-heading text-4xl md:text-5xl lg:text-6xl pointer-events-none"
         style={{ color: 'var(--color-gold-accent)' }}
       >
         '26
       </motion.span>
 
-      {/* ── Scroll Indicator ───────────────────────────── */}
+      {/* ── Scroll Indicator (Desktop only) ───────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-40"
+        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-40"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-dark-text/35 font-medium">Scroll</span>
-        <div className="w-[1px] h-9 bg-dark-text/10 overflow-hidden relative">
+        <span className="text-[9px] uppercase tracking-[0.3em] text-dark-text/35 font-medium">Scroll</span>
+        <div className="w-[1px] h-[30px] bg-dark-text/10 overflow-hidden relative">
           <motion.div animate={{ y: ['-100%', '100%'] }} transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }} className="absolute inset-0 bg-warm-brown" />
         </div>
       </motion.div>
