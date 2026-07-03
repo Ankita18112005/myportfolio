@@ -321,7 +321,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-32 bg-dark-text z-10 overflow-hidden"
+      className="relative min-h-screen py-16 md:py-20 bg-dark-text z-10 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {/* ── Background Layers ──────────────────────────────── */}

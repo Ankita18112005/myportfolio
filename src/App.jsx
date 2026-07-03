@@ -55,7 +55,7 @@ const App = () => {
     <>
       <CustomCursor />
       {loading && <LoadingScreen setLoading={setLoading} />}
-      
+
       {!loading && (
         <>
           <Navbar />

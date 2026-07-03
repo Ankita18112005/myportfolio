@@ -21,7 +21,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Update active section
       const sections = navLinks.map(link => {
         // Map display name to section id
@@ -45,14 +45,13 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'py-4' : 'py-6'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -62,21 +61,19 @@ const Navbar = () => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <motion.nav 
+        <motion.nav
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className={`hidden md:flex items-center gap-8 px-8 py-3 rounded-full transition-all duration-500 ${
-            isScrolled ? 'glass' : 'bg-transparent'
-          }`}
+          className={`hidden md:flex items-center gap-8 px-8 py-3 rounded-full transition-all duration-500 ${isScrolled ? 'glass' : 'bg-transparent'
+            }`}
         >
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm uppercase tracking-widest font-medium transition-colors hover-target relative group ${
-                activeSection === link.href.replace('#', '') ? 'text-[var(--color-warm-brown)]' : 'text-dark-text hover:text-[var(--color-gold-accent)]'
-              }`}
+              className={`text-sm uppercase tracking-widest font-medium transition-colors hover-target relative group ${activeSection === link.href.replace('#', '') ? 'text-[var(--color-warm-brown)]' : 'text-dark-text hover:text-[var(--color-gold-accent)]'
+                }`}
             >
               {link.name}
               {activeSection === link.href.replace('#', '') && (
@@ -104,7 +101,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden z-50">
-          <button 
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-dark-text p-2 focus:outline-none"
           >

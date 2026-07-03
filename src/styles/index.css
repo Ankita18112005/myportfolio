@@ -13,12 +13,20 @@
 }
 
 @layer base {
-  html, body {
+
+  html,
+  body {
     @apply bg-cream text-dark-text font-body m-0 p-0 overflow-x-hidden;
-    cursor: none; /* We will use a custom cursor */
+    cursor: none;
+    /* We will use a custom cursor */
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading uppercase tracking-wide;
   }
 }
@@ -57,13 +65,16 @@ html.lenis {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-cream);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-warm-brown);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-accent);
 }
@@ -83,10 +94,21 @@ html.lenis {
 
 /* Blob animations */
 @keyframes blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0px, 0px) scale(1); }
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
 }
 
 .animate-blob {
@@ -103,6 +125,11 @@ html.lenis {
 
 /* Spin animation for orb glow rings */
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

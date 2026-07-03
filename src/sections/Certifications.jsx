@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
@@ -78,71 +78,72 @@ const certificates = [
   },
 ];
 
-// ── Sparkle ─────────────────────────────────────────────────────────
-const Sparkle = ({ top, left, delay = 0 }) => (
-  <motion.div
-    className="absolute w-1 h-1 rounded-full bg-gold-accent/30 pointer-events-none"
-    style={{ top, left }}
-    animate={{ opacity: [0.15, 0.6, 0.15], scale: [0.8, 1.3, 0.8] }}
-    transition={{ repeat: Infinity, duration: 3.5, delay, ease: 'easeInOut' }}
-  />
-);
+// ── Sparkle (Removed for minimalist style) ────────────────────────
 
 // ── Certificate Lightbox Modal ──────────────────────────────────────
-const CertModal = ({ cert, onClose }) => (
-  <motion.div
-    className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.25 }}
-  >
-    <motion.div className="absolute inset-0 bg-dark-text/85 backdrop-blur-lg" onClick={onClose} />
+const CertModal = ({ cert, onClose }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
+  return (
     <motion.div
-      className="relative z-10 w-full max-w-4xl flex flex-col items-center"
-      initial={{ scale: 0.9, y: 40 }}
-      animate={{ scale: 1, y: 0 }}
-      exit={{ scale: 0.9, y: 40 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
     >
-      {/* Close */}
-      <button
-        onClick={onClose}
-        className="absolute -top-14 right-0 w-10 h-10 rounded-full bg-cream/10 border border-cream/20 text-cream flex items-center justify-center hover:bg-cream/20 transition-colors hover-target z-20"
-      >
-        <X size={18} />
-      </button>
+      <motion.div className="absolute inset-0 bg-dark-text/85 backdrop-blur-lg" onClick={onClose} />
 
-      {/* PDF Viewer */}
-      <div
-        className="w-full rounded-2xl overflow-hidden shadow-2xl"
-        style={{ border: '1px solid rgba(216,164,107,0.15)' }}
+      <motion.div
+        className="relative z-10 w-full max-w-4xl flex flex-col items-center"
+        initial={{ scale: 0.9, y: 40 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 40 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        <iframe
-          src={`${cert.file}#toolbar=0`}
-          title={cert.title}
-          className="w-full bg-white"
-          style={{ height: '75vh' }}
-        />
-      </div>
-
-      {/* Info below */}
-      <div className="text-center mt-6">
-        <h3 className="font-heading text-2xl text-cream mb-1">{cert.title}</h3>
-        <p className="text-cream/50 text-sm mb-4">{cert.org} · {cert.date}</p>
-        <a
-          href={cert.file}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-cream/20 text-cream/70 text-xs uppercase tracking-wider hover:bg-cream/10 transition-colors hover-target"
+        {/* PDF Viewer */}
+        <div
+          className="w-full rounded-2xl shadow-2xl relative bg-white"
+          style={{ border: '1px solid rgba(42,33,28,0.15)' }}
         >
-          <ExternalLink size={12} /> Open Full
-        </a>
-      </div>
+          {/* Close */}
+          <button
+            onClick={onClose}
+            className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-white border border-dark-text/10 text-dark-text shadow-xl flex items-center justify-center hover:bg-dark-text hover:text-white transition-colors hover-target z-[60]"
+          >
+            <X size={20} />
+          </button>
+
+          <iframe
+            src={`${cert.file}#toolbar=0`}
+            title={cert.title}
+            className="w-full rounded-2xl"
+            style={{ height: '75vh' }}
+          />
+        </div>
+
+        {/* Info below */}
+        <div className="text-center mt-6">
+          <h3 className="font-heading text-2xl text-cream mb-1">{cert.title}</h3>
+          <p className="text-cream/50 text-sm mb-4">{cert.org} · {cert.date}</p>
+          <a
+            href={cert.file}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-cream/20 text-cream/70 text-xs uppercase tracking-wider hover:bg-cream/10 transition-colors hover-target"
+          >
+            <ExternalLink size={12} /> Open Full
+          </a>
+        </div>
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 // ── Stacked Card Carousel ───────────────────────────────────────────
 const Certifications = () => {
@@ -170,18 +171,14 @@ const Certifications = () => {
     <section
       id="certifications"
       ref={sectionRef}
-      className="relative py-32 md:py-40 bg-cream z-10 overflow-hidden"
+      className={`relative py-24 md:py-32 bg-dark-text overflow-hidden ${selectedCert ? 'z-[100]' : 'z-10'}`}
     >
-      {/* ── Background ─────────────────────────────────────── */}
-      <div className="absolute top-[-5%] right-[-8%] w-[35vw] h-[35vw] bg-warm-brown/[0.04] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-8%] left-[-5%] w-[30vw] h-[30vw] bg-gold-accent/[0.04] rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute inset-0 noise-bg opacity-[0.02] mix-blend-overlay pointer-events-none" />
+      {/* Huge vertical background text */}
+      <div className="absolute font-heading text-[clamp(6rem,15vw,12rem)] leading-none font-normal select-none pointer-events-none whitespace-nowrap hidden lg:block text-cream/[0.03]" style={{ top: '15%', left: '-5%', transform: 'rotate(-90deg)', transformOrigin: 'left top' }}>CREDENTIALS</div>
 
-      <Sparkle top="12%" left="18%" delay={0} />
-      <Sparkle top="28%" left="82%" delay={1.2} />
-      <Sparkle top="68%" left="8%" delay={0.5} />
-      <Sparkle top="78%" left="72%" delay={2} />
-      <Sparkle top="42%" left="92%" delay={1.5} />
+      {/* ── Background ─────────────────────────────────────── */}
+      <div className="absolute top-[-5%] right-[-8%] w-[35vw] h-[35vw] bg-warm-brown/[0.04] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-8%] left-[-5%] w-[30vw] h-[30vw] bg-gold-accent/[0.03] rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* ── Header ───────────────────────────────────────── */}
@@ -191,29 +188,21 @@ const Certifications = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-warm-brown text-xs uppercase tracking-[0.4em] mb-5 font-medium"
+            className="font-inter text-xs uppercase tracking-[0.25em] text-cream/50 mb-4 font-medium"
           >
             Verified Credentials
           </motion.p>
 
-          <div className="overflow-hidden mb-2">
+          <div className="overflow-hidden mb-6">
             <motion.h2
               initial={{ y: 80 }}
               animate={isHeadingInView ? { y: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-5xl md:text-7xl text-dark-text"
+              className="font-heading text-5xl md:text-7xl text-cream font-normal tracking-tight"
             >
-              CERTIFICATIONS
+              Certifications
             </motion.h2>
           </div>
-
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: 80 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="h-[2px] bg-gradient-to-r from-warm-brown to-gold-accent mx-auto rounded-full"
-          />
         </div>
 
         {/* ── Stacked Carousel ─────────────────────────────── */}
@@ -258,41 +247,41 @@ const Certifications = () => {
                     }`}
                     style={{
                       background: isCenter
-                        ? 'linear-gradient(145deg, rgba(255,255,255,0.75) 0%, rgba(232,216,196,0.4) 100%)'
-                        : 'linear-gradient(145deg, rgba(255,255,255,0.5) 0%, rgba(232,216,196,0.2) 100%)',
-                      backdropFilter: 'blur(20px)',
+                        ? '#2D2825'
+                        : '#24201E',
+                      backdropFilter: 'none',
                       border: isCenter
-                        ? '1px solid rgba(166,106,63,0.25)'
-                        : '1px solid rgba(166,106,63,0.08)',
+                        ? '1px solid rgba(255,255,255,0.06)'
+                        : '1px solid rgba(255,255,255,0.02)',
                       boxShadow: isCenter
-                        ? '0 30px 80px rgba(166,106,63,0.12), 0 0 0 1px rgba(216,164,107,0.05)'
-                        : '0 12px 40px rgba(0,0,0,0.04)',
+                        ? '0 25px 50px -12px rgba(0,0,0,0.5)'
+                        : '0 10px 30px -10px rgba(0,0,0,0.5)',
                     }}
                   >
                     {/* Category tag */}
                     <span
-                      className="inline-block px-3 py-1 rounded-full text-[10px] uppercase tracking-[0.15em] font-medium mb-6"
+                      className="inline-block px-3 py-1 rounded-full text-[10px] uppercase tracking-[0.15em] font-medium mb-6 font-inter"
                       style={{
-                        color: 'var(--color-warm-brown)',
-                        background: 'rgba(166,106,63,0.08)',
-                        border: '1px solid rgba(166,106,63,0.12)',
+                        color: '#b87333',
+                        background: 'rgba(184, 115, 51, 0.1)',
+                        border: '1px solid rgba(184, 115, 51, 0.25)',
                       }}
                     >
                       {cert.category}
                     </span>
 
                     {/* Title */}
-                    <h3 className="font-heading text-2xl md:text-3xl text-dark-text leading-snug mb-3">
+                    <h3 className="font-heading text-2xl md:text-3xl text-cream font-normal leading-snug mb-3">
                       {cert.title}
                     </h3>
 
                     {/* Organization */}
-                    <p className="text-dark-text/50 text-sm font-light mb-1">
+                    <p className="font-inter text-cream/60 text-xs font-medium uppercase tracking-widest mb-1">
                       {cert.org}
                     </p>
 
                     {/* Date */}
-                    <p className="text-dark-text/35 text-xs tracking-wider mb-8">
+                    <p className="font-inter text-gold-accent/80 font-medium tracking-wide text-xs mt-3 mb-8">
                       {cert.date}
                     </p>
 
@@ -301,7 +290,7 @@ const Certifications = () => {
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="flex items-center gap-2 text-warm-brown text-xs font-medium uppercase tracking-[0.15em] group"
+                        className="flex items-center gap-2 text-warm-brown text-xs font-bold uppercase tracking-[0.15em] group"
                       >
                         <span>View Certificate</span>
                         <motion.span
@@ -315,10 +304,10 @@ const Certifications = () => {
 
                     {/* Decorative corner accent */}
                     <div
-                      className="absolute top-0 right-0 w-16 h-16 pointer-events-none"
+                      className="absolute top-0 right-0 w-12 h-12 pointer-events-none"
                       style={{
-                        borderTop: '2px solid rgba(166,106,63,0.12)',
-                        borderRight: '2px solid rgba(166,106,63,0.12)',
+                        borderTop: '1px solid rgba(216,164,107,0.2)',
+                        borderRight: '1px solid rgba(216,164,107,0.2)',
                         borderTopRightRadius: '1.5rem',
                       }}
                     />
@@ -333,13 +322,9 @@ const Certifications = () => {
         <div className="flex items-center justify-center gap-6 mt-12">
           <button
             onClick={prev}
-            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover-target"
-            style={{
-              border: '1px solid rgba(166,106,63,0.15)',
-              background: 'rgba(255,255,255,0.5)',
-            }}
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover-target bg-transparent border border-cream/20 hover:bg-cream hover:text-dark-text text-cream/60"
           >
-            <ChevronLeft size={18} className="text-dark-text/60" />
+            <ChevronLeft size={18} />
           </button>
 
           {/* Dots */}
@@ -353,7 +338,7 @@ const Certifications = () => {
                   width: i === activeIndex ? 24 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === activeIndex ? 'var(--color-warm-brown)' : 'rgba(166,106,63,0.2)',
+                  background: i === activeIndex ? 'var(--color-warm-brown)' : 'rgba(255,255,255,0.1)',
                 }}
               />
             ))}
@@ -361,18 +346,14 @@ const Certifications = () => {
 
           <button
             onClick={next}
-            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover-target"
-            style={{
-              border: '1px solid rgba(166,106,63,0.15)',
-              background: 'rgba(255,255,255,0.5)',
-            }}
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover-target bg-transparent border border-cream/20 hover:bg-cream hover:text-dark-text text-cream/60"
           >
-            <ChevronRight size={18} className="text-dark-text/60" />
+            <ChevronRight size={18} />
           </button>
         </div>
 
         {/* Counter */}
-        <p className="text-center mt-4 text-dark-text/30 text-xs tracking-wider font-medium">
+        <p className="text-center mt-4 text-cream/30 text-xs tracking-wider font-medium">
           {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </p>
       </div>

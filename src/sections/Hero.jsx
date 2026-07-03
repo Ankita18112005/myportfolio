@@ -3,15 +3,15 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 
 // ── Letter configs for curved "PORTFOLIO" ───────────────────────────
 const allLetters = [
-  { char: 'P', rotate: -9,  y: 16,  scale: 1.05 },
-  { char: 'O', rotate: -5,  y: 8,   scale: 0.93 },
-  { char: 'R', rotate: -2,  y: 2,   scale: 0.97 },
-  { char: 'T', rotate: 2,   y: -3,  scale: 1.1  },
-  { char: 'F', rotate: 5,   y: -1,  scale: 0.94 },
-  { char: 'O', rotate: 4,   y: 5,   scale: 0.92 },
-  { char: 'L', rotate: 1,   y: 10,  scale: 0.98 },
-  { char: 'I', rotate: -2,  y: 14,  scale: 0.85 },
-  { char: 'O', rotate: -6,  y: 11,  scale: 0.94 },
+  { char: 'P', rotate: -9, y: 16, scale: 1.05 },
+  { char: 'O', rotate: -5, y: 8, scale: 0.93 },
+  { char: 'R', rotate: -2, y: 2, scale: 0.97 },
+  { char: 'T', rotate: 2, y: -3, scale: 1.1 },
+  { char: 'F', rotate: 5, y: -1, scale: 0.94 },
+  { char: 'O', rotate: 4, y: 5, scale: 0.92 },
+  { char: 'L', rotate: 1, y: 10, scale: 0.98 },
+  { char: 'I', rotate: -2, y: 14, scale: 0.85 },
+  { char: 'O', rotate: -6, y: 11, scale: 0.94 },
 ];
 
 // Split: left 4 letters, right 5 letters (character sits in between)

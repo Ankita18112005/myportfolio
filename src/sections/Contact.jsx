@@ -18,12 +18,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative bg-cream z-10 overflow-hidden">
+    <section id="contact" className="py-16 md:py-20 relative bg-cream z-10 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-warm-brown/5 rounded-full blur-[120px] pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -31,7 +31,7 @@ const Contact = () => {
           >
             LET'S <span className="text-warm-brown">CONNECT</span>
           </motion.h2>
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: "100px" }}
             viewport={{ once: true }}
@@ -41,7 +41,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Info */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -97,7 +97,7 @@ const Contact = () => {
           </motion.div>
 
           {/* Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -105,13 +105,13 @@ const Contact = () => {
           >
             <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-[40px] flex flex-col gap-8">
               <div className="relative z-0 group">
-                <input 
-                  type="text" 
-                  name="name" 
+                <input
+                  type="text"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required 
-                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" " 
+                  required
+                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" "
                 />
                 <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                   Your Name
@@ -119,13 +119,13 @@ const Contact = () => {
               </div>
 
               <div className="relative z-0 group">
-                <input 
-                  type="email" 
-                  name="email" 
+                <input
+                  type="email"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required 
-                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" " 
+                  required
+                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" "
                 />
                 <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                   Email Address
@@ -133,21 +133,21 @@ const Contact = () => {
               </div>
 
               <div className="relative z-0 group">
-                <textarea 
-                  name="message" 
+                <textarea
+                  name="message"
                   rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  required 
-                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer resize-none custom-scrollbar" placeholder=" " 
+                  required
+                  className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer resize-none custom-scrollbar" placeholder=" "
                 />
                 <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
                   Message
                 </label>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="w-full py-5 bg-dark-text text-cream rounded-full font-medium tracking-widest uppercase text-sm hover:bg-warm-brown transition-colors hover-target mt-4"
               >
                 Send Message
