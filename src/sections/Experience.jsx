@@ -293,8 +293,8 @@ const Experience = () => {
           </div>
 
           {/* Right: Info Card (Mobile placed below, Desktop right) */}
-          <div className="w-[92%] lg:w-[40%] flex justify-center lg:justify-end z-20 shrink-0">
-            <div className="w-full max-w-[360px] lg:max-w-[380px] xl:max-w-[400px]">
+          <div className="w-full px-4 lg:px-0 lg:w-[40%] flex justify-center lg:justify-end z-20 shrink-0 mx-auto">
+            <div className="w-full max-w-[340px] md:max-w-[360px] lg:max-w-[380px] xl:max-w-[400px] mx-auto">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeNode.id}
@@ -302,7 +302,7 @@ const Experience = () => {
                   animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0, y: 0 }}
                   exit={isMobile ? { opacity: 0, y: -15 } : { opacity: 0, x: -30, y: 0 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="relative w-full bg-gradient-to-br from-[#B97A45] via-[#A86B3B] to-[#8F5C31] backdrop-blur-3xl border border-[#FFF8F1]/30 rounded-[24px] p-6 md:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.2),_0_10px_25px_rgba(169,113,66,0.3),_inset_0_2px_4px_rgba(255,255,255,0.3)] flex flex-col min-h-[320px] md:min-h-[400px] overflow-hidden"
+                  className="relative w-full bg-gradient-to-br from-[#B97A45] via-[#A86B3B] to-[#8F5C31] backdrop-blur-3xl border border-[#FFF8F1]/30 rounded-[24px] p-6 md:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.2),_0_10px_25px_rgba(169,113,66,0.3),_inset_0_2px_4px_rgba(255,255,255,0.3)] flex flex-col min-h-[280px] md:min-h-[400px] overflow-hidden"
                 >
                   {/* Soft Glossy Highlight at top */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none rounded-[24px]"></div>

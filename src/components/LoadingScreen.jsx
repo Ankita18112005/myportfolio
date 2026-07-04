@@ -42,12 +42,12 @@ const LoadingScreen = ({ setLoading }) => {
 
         <div className="relative z-10 flex flex-col items-center gap-12">
           {/* Logo Reveal */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden w-full flex justify-center px-4">
             <motion.h1 
               initial={{ y: 100 }}
               animate={{ y: 0 }}
               transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-              className="font-heading text-6xl md:text-8xl tracking-widest text-dark-text relative"
+              className="font-heading text-[11vw] sm:text-6xl md:text-8xl tracking-widest text-dark-text relative text-center leading-tight"
             >
               ANKITA KARAN
               {/* Shimmer effect */}
