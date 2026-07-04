@@ -15,6 +15,7 @@ import Projects from './sections/Projects';
 import Experience from './sections/Experience';
 import Contact from './sections/Contact';
 import Certifications from './sections/Certifications';
+import Hackathons from './sections/Hackathons';
 import Footer from './sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -67,6 +68,7 @@ const App = () => {
             <Experience />
             <Projects />
             <Certifications />
+            <Hackathons />
             <Contact />
             <Footer />
           </main>
