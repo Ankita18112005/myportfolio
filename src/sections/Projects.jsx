@@ -78,30 +78,45 @@ const MobileProjectCard = ({ project }) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col w-full bg-white/40 border border-dark-text/5 rounded-[24px] overflow-hidden shadow-sm"
+      className="flex flex-col w-full bg-[#1c1a1a] rounded-[24px] overflow-hidden shadow-xl border border-[rgba(255,255,255,0.05)] transition-transform duration-300"
     >
-      <div className="w-full h-[160px] overflow-hidden bg-cream/50 relative">
+      <div className="w-full h-[180px] overflow-hidden relative bg-[#111]">
         <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1a1a] to-transparent opacity-80" />
       </div>
-      <div className="flex flex-col p-[16px]">
-        <div className="flex items-center gap-[8px] mb-[8px] text-[10px] font-bold text-[#8B0000] uppercase tracking-widest">
-          <span>{project.category}</span>
-          <span className="w-1 h-1 rounded-full bg-[#8B0000]/30"></span>
-          <span>{project.year}</span>
-        </div>
-        <h3 className="font-playfair text-[22px] font-bold text-[#332828] mb-[6px] leading-tight">{project.title}</h3>
-        <p className="font-inter text-[13px] text-[#8B0000] mb-[12px] font-medium leading-snug">{project.tagline}</p>
-        <div className="flex flex-wrap gap-[6px] mb-[16px]">
+      <div className="flex flex-col p-[20px]">
+        {/* Tech Badges */}
+        <div className="flex flex-wrap items-center gap-[6px] mb-[16px]">
+          <span className="text-white/70 font-mono text-xs mr-1">{'</>'}</span>
           {project.tech.map((t, i) => (
-            <span key={i} className="px-[10px] py-[4px] bg-[#8B0000]/5 text-[#8B0000] rounded-full text-[11px] font-medium border border-[#8B0000]/10">
+            <span key={i} className="px-[10px] py-[4px] rounded-full border border-white/20 text-white/80 text-[8px] font-bold uppercase tracking-[0.15em] bg-white/5 whitespace-nowrap">
               {t}
             </span>
           ))}
         </div>
-        <div className="flex flex-col w-full mt-auto">
+        
+        {/* Title & Tagline */}
+        <h3 className="font-inter text-[20px] font-bold text-white mb-[4px] leading-tight tracking-wide">{project.title}</h3>
+        <p className="font-inter text-[12px] font-bold text-white/70 mb-[16px] tracking-wide">{project.category}</p>
+        
+        {/* Description */}
+        <p className="font-inter text-white/60 text-[12px] leading-relaxed mb-[24px]">
+          {project.description}
+        </p>
+        
+        {/* Action Buttons */}
+        <div className="flex items-center gap-[16px] mt-auto pt-[16px] border-t border-white/10 w-full">
+          <span className="text-white/40 text-[8px] font-bold uppercase tracking-[0.2em] mr-auto">
+            Key Contributions
+          </span>
           {project.demo && project.demo !== '#' && (
-            <a href={project.demo} target="_blank" rel="noreferrer" className="w-full py-[12px] bg-[#8B0000] text-white rounded-full text-center text-[13px] font-medium tracking-wide flex items-center justify-center transition-opacity hover:opacity-90">
-              Live Demo <ExternalLink size={14} className="ml-[8px]" />
+            <a href={project.demo} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[9px] font-bold uppercase tracking-widest flex items-center transition-colors">
+              Demo <ExternalLink size={10} className="ml-1" />
+            </a>
+          )}
+          {project.github && project.github !== '#' && (
+            <a href={project.github} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[9px] font-bold uppercase tracking-widest flex items-center transition-colors">
+              GitHub <FaGithub size={10} className="ml-1" />
             </a>
           )}
         </div>
@@ -120,77 +135,68 @@ const ProjectCard = ({ project, index }) => {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-
-  // Determine layout direction (alternate every row)
-  const isEven = index % 2 === 0;
+  const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
   return (
     <motion.div
       ref={cardRef}
       style={{ opacity, y }}
-      className="project-card-container w-full p-4 md:p-6 mb-12 lg:mb-16 flex flex-col lg:flex-row gap-6 lg:gap-8"
+      className="flex flex-col w-full bg-[#1c1a1a] rounded-[24px] overflow-hidden shadow-2xl border border-[rgba(255,255,255,0.05)] transition-transform duration-300 hover:-translate-y-2 group"
     >
       {/* Image Side */}
-      <div className={`w-full lg:w-1/2 h-[250px] md:h-[350px] lg:h-auto min-h-[300px] project-img-wrapper ${!isEven ? 'lg:order-2' : ''}`}>
+      <div className="w-full h-[160px] md:h-[200px] overflow-hidden relative bg-[#111]">
         <img
           src={project.image}
           alt={project.title}
-          className="project-img"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1a1a] to-transparent opacity-80" />
       </div>
 
       {/* Content Side */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center py-4 lg:py-10 px-2 lg:px-8">
-
-        {/* Meta Info */}
-        <div className="flex items-center gap-4 mb-4 text-xs font-inter font-bold tracking-widest text-[#8B0000] uppercase">
-          <span>{project.category}</span>
-          <span className="w-1 h-1 rounded-full bg-[#8B0000]/30"></span>
-          <span>{project.year}</span>
-          <span className="w-1 h-1 rounded-full bg-[#8B0000]/30"></span>
-          <span className={project.status === 'Ongoing' ? 'text-orange-600' : 'text-[#8B0000]/70'}>
-            {project.status}
-          </span>
-        </div>
-
-        {/* Title & Tagline */}
-        <h3 className="font-playfair text-3xl md:text-4xl font-bold text-[#332828] mb-2 leading-tight">
-          {project.title}
-        </h3>
-        <p className="font-inter text-lg md:text-xl font-medium text-[#8B0000] mb-6">
-          {project.tagline}
-        </p>
-
-        {/* Description */}
-        <p className="font-inter text-[#332828]/80 leading-relaxed mb-8 max-w-[90%]">
-          {project.description}
-        </p>
+      <div className="flex flex-col p-5 md:p-6 flex-1">
 
         {/* Tech Badges */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <span className="text-white/70 font-mono text-sm mr-1">{'</>'}</span>
           {project.tech.map((techItem, i) => (
-            <span key={i} className="tech-pill font-inter">
+            <span key={i} className="px-3 py-1 rounded-full border border-white/20 text-white/80 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] bg-white/5 whitespace-nowrap">
               {techItem}
             </span>
           ))}
         </div>
 
+        {/* Title & Tagline */}
+        <h3 className="font-inter text-2xl md:text-3xl font-bold text-white mb-1 leading-tight tracking-wide">
+          {project.title}
+        </h3>
+        <p className="font-inter text-sm font-bold text-white/70 mb-3 tracking-wide">
+          {project.category}
+        </p>
+
+        {/* Description */}
+        <p className="font-inter text-white/60 text-[13px] md:text-sm leading-relaxed mb-5">
+          {project.description}
+        </p>
+
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-auto w-full">
+        <div className="flex items-center gap-6 mt-auto pt-4 border-t border-white/10">
+          <span className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em] mr-auto">
+            Key Contributions
+          </span>
           {project.demo && project.demo !== '#' && (
-            <a href={project.demo} target="_blank" rel="noreferrer" className="btn-project-primary w-full sm:w-auto justify-center text-center">
-              Live Demo <ExternalLink size={16} className="inline ml-2" />
+            <a href={project.demo} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[10px] font-bold uppercase tracking-widest flex items-center transition-colors">
+              Demo <ExternalLink size={12} className="ml-1.5" />
             </a>
           )}
           {project.github && project.github !== '#' && (
-            <a href={project.github} target="_blank" rel="noreferrer" className="btn-project-secondary w-full sm:w-auto justify-center text-center px-6 py-3 border border-[#8B0000] text-[#8B0000] rounded-full font-medium tracking-wide hover:bg-[#8B0000] hover:text-cream transition-colors flex items-center">
-              GitHub <FaGithub size={16} className="inline ml-2" />
+            <a href={project.github} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[10px] font-bold uppercase tracking-widest flex items-center transition-colors">
+              GitHub <FaGithub size={12} className="ml-1.5" />
             </a>
           )}
         </div>
-
       </div>
     </motion.div>
   );
@@ -198,7 +204,7 @@ const ProjectCard = ({ project, index }) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="pt-0 pb-16 md:py-20 relative bg-cream z-20 overflow-hidden">
+    <section id="projects" className="pt-16 pb-16 md:py-20 relative bg-cream z-20 overflow-hidden">
 
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 relative z-10 hidden md:block">
 
@@ -230,8 +236,8 @@ const Projects = () => {
           </motion.p>
         </div>
 
-        {/* Project Cards Vertical Layout */}
-        <div className="flex flex-col w-full">
+        {/* Project Cards Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
@@ -244,7 +250,7 @@ const Projects = () => {
           viewport={{ once: true }}
           className="flex justify-center mt-12"
         >
-          <a href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="btn-project-secondary px-8">
+          <a href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="px-8 py-3 border border-[#A97142] text-[#A97142] rounded-full font-medium tracking-wide hover:bg-[#A97142] hover:text-[#171412] transition-colors">
             View All Projects
           </a>
         </motion.div>
@@ -273,7 +279,7 @@ const Projects = () => {
         </div>
 
         <div className="flex justify-center mt-[40px] w-full">
-          <a href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="w-full py-[16px] border-2 border-[#8B0000] text-[#8B0000] rounded-full text-center text-[16px] font-medium tracking-wide flex items-center justify-center">
+          <a href="https://github.com/Ankita18112005" target="_blank" rel="noreferrer" className="w-full py-[16px] border border-[#A97142] text-[#A97142] rounded-full text-center text-[14px] font-medium tracking-wide hover:bg-[#A97142] hover:text-[#171412] transition-colors flex items-center justify-center">
             View All Projects
           </a>
         </div>

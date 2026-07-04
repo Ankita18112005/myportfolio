@@ -109,7 +109,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Side Drawer Navigation */}
+      {/* Mobile Floating Navigation Panel */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
@@ -118,56 +118,65 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.4 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/45 backdrop-blur-[12px] z-50 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 md:hidden"
             />
             
-            {/* Glassmorphism Drawer */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-fit max-h-[100dvh] w-[85%] max-w-[340px] bg-[rgba(28,25,23,0.92)] backdrop-blur-xl z-[60] md:hidden rounded-l-[32px] shadow-2xl flex flex-col"
-            >
-              {/* Close Button */}
-              <div className="flex justify-end p-6">
-                <motion.button
-                   whileHover={{ rotate: 90 }}
-                   whileTap={{ scale: 0.9 }}
-                   onClick={() => setMobileMenuOpen(false)}
-                   className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-cream/70 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                   <X size={20} />
-                </motion.button>
-              </div>
+            {/* Glassmorphism Floating Panel */}
+            <div className="fixed inset-0 z-[60] md:hidden flex items-center justify-center pointer-events-none px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="w-full max-w-[340px] sm:w-[85%] max-h-[75vh] bg-[rgba(28,25,23,0.92)] backdrop-blur-2xl rounded-[32px] shadow-[0_30px_70px_rgba(0,0,0,0.6),_0_0_0_1px_rgba(255,255,255,0.08),_inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col pointer-events-auto overflow-hidden"
+              >
+                {/* Header Row */}
+                <div className="flex justify-between items-center px-6 pt-6 pb-3">
+                  <span className="font-heading text-2xl font-bold tracking-wider text-cream">
+                    A<span className="text-[#A97142]">K</span>
+                  </span>
+                  <motion.button
+                    whileHover={{ rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-cream/70 hover:text-white hover:bg-white/10 transition-colors shadow-inner"
+                  >
+                    <X size={18} strokeWidth={2} />
+                  </motion.button>
+                </div>
 
-              {/* Navigation Links */}
-              <div className="flex-1 overflow-y-auto px-6 pb-6 flex flex-col gap-2 custom-scrollbar">
-                {navLinks.map((link, i) => {
-                  const isActive = activeSection === link.href.replace('#', '');
-                  return (
-                    <motion.a
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + (i * 0.04) }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`group flex items-center justify-between p-4 rounded-[20px] transition-all duration-300 ${isActive ? 'bg-white/10 text-white' : 'text-cream/70 hover:bg-white/5 hover:text-cream'}`}
-                    >
-                      <div className="flex items-center gap-5">
-                        <link.icon size={22} className={isActive ? 'text-[var(--color-warm-brown)]' : 'text-cream/40 group-hover:text-[var(--color-warm-brown)] transition-colors'} />
-                        <span className="font-heading text-[24px] tracking-wider font-medium">{link.name}</span>
-                      </div>
-                      <ChevronRight size={20} className={`transition-transform duration-300 ${isActive ? 'translate-x-1 text-[var(--color-warm-brown)]' : 'text-cream/20 group-hover:translate-x-1 group-hover:text-[var(--color-warm-brown)]'}`} />
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </motion.div>
+                {/* Navigation Links */}
+                <div className="flex-1 overflow-y-auto px-5 pb-5 pt-2 flex flex-col gap-2.5 custom-scrollbar">
+                  {navLinks.map((link, i) => {
+                    const isActive = activeSection === link.href.replace('#', '');
+                    return (
+                      <motion.a
+                        key={link.name}
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        initial={{ opacity: 0, x: -15 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + (i * 0.04), duration: 0.4 }}
+                        whileTap={{ scale: 0.96 }}
+                        className={`group flex items-center justify-between px-5 h-[50px] rounded-[18px] transition-all duration-300 ${
+                          isActive 
+                            ? 'bg-gradient-to-r from-[#B97A45] to-[#8F5C31] text-white shadow-[0_8px_16px_rgba(169,113,66,0.3),_inset_0_1px_1px_rgba(255,255,255,0.3)]' 
+                            : 'text-cream/75 hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <link.icon size={18} className={isActive ? 'text-white drop-shadow-sm' : 'text-cream/40 group-hover:text-[#A97142] transition-colors'} />
+                          <span className="font-inter text-[18px] font-semibold tracking-wide mt-0.5">{link.name}</span>
+                        </div>
+                        <ChevronRight size={16} strokeWidth={1.5} className={`transition-transform duration-300 ${isActive ? 'translate-x-1 text-white/80' : 'text-cream/20 group-hover:translate-x-1 group-hover:text-[#A97142]'}`} />
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

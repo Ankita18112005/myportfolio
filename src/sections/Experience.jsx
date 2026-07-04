@@ -114,7 +114,7 @@ const Experience = () => {
   }, []);
 
   return (
-    <section id="experience" className="pt-20 pb-16 md:py-36 relative bg-[#F8F5EF] text-[#332828] overflow-hidden">
+    <section id="experience" className="pt-20 pb-4 md:pt-32 md:pb-8 relative bg-[#F8F5EF] text-[#332828] overflow-hidden">
       
       {/* Paper Texture Grain */}
       <div className="noise-bg opacity-[0.04] pointer-events-none absolute inset-0 z-0 mix-blend-multiply"></div>
