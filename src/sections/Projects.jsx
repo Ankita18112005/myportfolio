@@ -115,11 +115,6 @@ const MobileProjectCard = ({ project }) => {
               Demo <ExternalLink size={10} className="ml-1" />
             </a>
           )}
-          {project.github && project.github !== '#' && (
-            <a href={project.github} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[9px] font-bold uppercase tracking-widest flex items-center transition-colors">
-              GitHub <FaGithub size={10} className="ml-1" />
-            </a>
-          )}
         </div>
       </div>
     </motion.div>
@@ -190,11 +185,6 @@ const ProjectCard = ({ project, index }) => {
           {project.demo && project.demo !== '#' && (
             <a href={project.demo} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[10px] font-bold uppercase tracking-widest flex items-center transition-colors">
               Demo <ExternalLink size={12} className="ml-1.5" />
-            </a>
-          )}
-          {project.github && project.github !== '#' && (
-            <a href={project.github} target="_blank" rel="noreferrer" className="text-[#A97142] hover:text-[#D8A46B] text-[10px] font-bold uppercase tracking-widest flex items-center transition-colors">
-              GitHub <FaGithub size={12} className="ml-1.5" />
             </a>
           )}
         </div>
