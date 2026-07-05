@@ -5,7 +5,7 @@ import { GraduationCap, Code, Palette, FolderGit2, Sparkles, CheckCircle2 } from
 const journeyNodes = [
   {
     id: 'education',
-    title: 'Education',
+    title: 'College',
     icon: GraduationCap,
     angle: -90, // Top (12 o'clock)
     card: {
@@ -23,13 +23,32 @@ const journeyNodes = [
     }
   },
   {
-    id: 'development',
-    title: 'Development',
-    icon: Code,
+    id: 'school',
+    title: 'School',
+    icon: GraduationCap,
     angle: -18, // Right slightly up (2 o'clock)
     card: {
+      category: 'EDUCATION',
+      role: 'HIGHER SECONDARY',
+      company: "RBM Govt Girls' School",
+      period: 'Completed 2023',
+      description: 'Completed my higher secondary education with a strong foundation in science and mathematics, developing a passion for technology and design.',
+      focusAreas: [
+        'Physics',
+        'Chemistry',
+        'Mathematics',
+        'Computer Science'
+      ]
+    }
+  },
+  {
+    id: 'development',
+    title: 'Web Dev',
+    icon: Code,
+    angle: 54, // Bottom Right (5 o'clock)
+    card: {
       category: 'DEVELOPMENT',
-      role: 'FRONTEND DEV',
+      role: 'WEB DEVELOPER',
       company: 'Self Taught & Projects',
       period: '2023 – Present',
       description: 'Building modern web applications with clean architecture and responsive design.\n\nCrafting pixel-perfect user interfaces.',
@@ -42,48 +61,10 @@ const journeyNodes = [
     }
   },
   {
-    id: 'future',
-    title: 'Future',
-    icon: Sparkles,
-    angle: 54, // Bottom Right (5 o'clock)
-    card: {
-      category: 'FUTURE',
-      role: 'BACKEND DEV',
-      company: 'Currently Learning',
-      period: 'Ongoing',
-      description: 'Always improving and learning new technologies to become a complete Full Stack Developer.',
-      focusAreas: [
-        'Node.js & Express',
-        'MongoDB',
-        'API Design',
-        'System Architecture'
-      ]
-    }
-  },
-  {
-    id: 'projects',
-    title: 'Projects',
-    icon: FolderGit2,
-    angle: 126, // Bottom Left (7 o'clock)
-    card: {
-      category: 'PROJECTS',
-      role: 'CREATOR',
-      company: '15+ Projects Built',
-      period: 'Continuous',
-      description: 'Building real-world applications with modern technologies to solve real problems.',
-      focusAreas: [
-        'TimeNest',
-        'Valix',
-        'MediLink',
-        'Parot.dev'
-      ]
-    }
-  },
-  {
     id: 'design',
     title: 'UI/UX Design',
     icon: Palette,
-    angle: 198, // Left slightly up (10 o'clock)
+    angle: 126, // Bottom Left (7 o'clock)
     card: {
       category: 'UI/UX DESIGN',
       role: 'UI/UX DESIGNER',
@@ -95,6 +76,25 @@ const journeyNodes = [
         'Prototyping',
         'Design Systems',
         'User Research'
+      ]
+    }
+  },
+  {
+    id: 'creator',
+    title: 'Creator',
+    icon: FolderGit2,
+    angle: 198, // Left slightly up (10 o'clock)
+    card: {
+      category: 'PROJECTS',
+      role: 'CREATOR',
+      company: '15+ Projects Built',
+      period: 'Continuous',
+      description: 'Building real-world applications with modern technologies to solve real problems.',
+      focusAreas: [
+        'TimeNest',
+        'Valix',
+        'MediLink',
+        'Parot.dev'
       ]
     }
   }

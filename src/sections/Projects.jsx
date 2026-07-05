@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import { RevealCharacters, FadeUpWords } from '../components/AnimatedText';
 import './Projects.css';
 
 const projects = [
@@ -209,7 +210,7 @@ const Projects = () => {
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 relative z-10 hidden md:block">
 
         {/* Section Header */}
-        <div className="mb-20 max-w-2xl">
+        <div className="mb-20 max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -218,14 +219,11 @@ const Projects = () => {
           >
             MY WORK
           </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, delay: 0.1 }}
+          <h2
             className="font-playfair text-5xl md:text-7xl text-[#332828] font-bold mb-6 leading-tight"
           >
-            Featured Projects
-          </motion.h2>
+            <RevealCharacters text="Featured Projects" />
+          </h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -264,7 +262,7 @@ const Projects = () => {
             MY WORK
           </p>
           <h2 className="font-playfair text-[30px] text-[#332828] font-bold mb-[16px] leading-tight">
-            Featured Projects
+            <RevealCharacters text="Featured Projects" />
           </h2>
           <div className="h-[2px] bg-[#8B0000]/20 mx-auto w-[80px] mb-[24px]" />
           <p className="font-inter text-[14px] text-[#332828]/80 leading-[1.6]">

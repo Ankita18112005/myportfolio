@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Download, ExternalLink, Briefcase, Code2, GraduationCap } from 'lucide-react';
+import { RevealCharacters, FadeUpWords } from '../components/AnimatedText';
 import './About.css';
 
 const About = () => {
@@ -73,7 +74,9 @@ const About = () => {
               HELLO, I'M
             </p>
             <h2 className="font-playfair text-[56px] md:text-6xl lg:text-[5.5rem] text-dark-red font-bold leading-[0.9] tracking-tighter">
-              ANKITA<br className="hidden lg:block" /> KARAN
+              <RevealCharacters text="ANKITA" />
+              <br className="hidden lg:block" />
+              <RevealCharacters text="KARAN" delay={0.2} />
             </h2>
           </motion.div>
 
