@@ -170,7 +170,7 @@ const Footer = () => {
               Ankita Karan
             </p>
             <p className="text-cream/60 text-sm leading-relaxed max-w-xs mb-8">
-              Frontend Developer & UI/UX Designer crafting immersive digital experiences with modern UI, animation, and scalable web technologies.
+              Web Developer & UI/UX Designer crafting immersive digital experiences with modern UI, animation, and scalable web technologies.
             </p>
 
             {/* Social Icons */}
@@ -272,8 +272,8 @@ const Footer = () => {
             <span className="text-cream/20 font-inter mx-1 font-light">|</span> 
             <span className="text-[14px] text-cream/70 uppercase tracking-[0.2em] font-medium mt-[2px] font-inter">Ankita Karan</span>
           </h3>
-          <p className="text-cream/50 text-[12px] leading-relaxed max-w-[280px] mx-auto mb-5 font-inter">
-            Frontend Developer & UI/UX Designer crafting immersive digital experiences.
+          <p className="font-inter text-[#E8D8C4]/60 text-[12px] leading-relaxed max-w-[280px]">
+            Web Developer & UI/UX Designer crafting immersive digital experiences.
           </p>
           <div className="flex gap-4 justify-center">
             {socialLinks.map((social) => (

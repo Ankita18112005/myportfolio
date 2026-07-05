@@ -227,7 +227,7 @@ const Hero = () => {
               className="flex flex-col items-center md:items-end w-full md:w-auto mt-2 md:mt-0"
             >
               <p className="text-dark-text/80 text-[12px] sm:text-[13px] md:text-sm tracking-[0.2em] uppercase font-extrabold text-center md:text-left">
-                Frontend Developer & UI/UX Designer
+                Web Developer & UI/UX Designer
               </p>
               <div className="flex flex-row w-full justify-center md:justify-end gap-[14px] mt-[24px] md:mt-3">
                 <a href="#projects" className="w-[46%] max-w-[150px] px-2 py-[14px] md:py-3 bg-dark-text text-cream rounded-full text-[13px] md:text-sm font-medium tracking-wide hover:bg-warm-brown transition-all duration-300 hover:scale-105 hover-target text-center flex items-center justify-center leading-none shadow-sm">

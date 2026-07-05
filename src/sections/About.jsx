@@ -83,7 +83,7 @@ const About = () => {
           {/* Titles */}
           <motion.div variants={fadeUp} className="flex flex-col gap-1 mb-5 lg:mb-8 text-center lg:text-left">
             <h3 className="font-playfair text-xl md:text-2xl text-dark-red font-bold uppercase tracking-wide">
-              FRONTEND DEVELOPER
+              WEB DEVELOPER
             </h3>
             <h3 className="font-playfair text-lg md:text-xl text-dark-brown/60 italic">
               (UI/UX DESIGNER)
