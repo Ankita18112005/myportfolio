@@ -8,49 +8,38 @@ export const RevealCharacters = ({ text, className, delay = 0 }) => {
 
   return (
     <span
-      style={{ display: 'inline-flex', flexWrap: 'wrap', overflow: 'hidden', perspective: '1000px' }}
+      style={{ display: 'inline-flex', flexWrap: 'wrap', perspective: '1000px', gap: '0.25em' }}
       className={className}
     >
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-          {word.split('').map((char, charIndex) => {
-            const currentIdx = charCount++;
-            return (
-              <motion.span
-                key={charIndex}
-                initial={{ opacity: 0, y: 20, rotateX: 90 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{
-                  type: 'spring',
-                  damping: 12,
-                  stiffness: 100,
-                  delay: delay + currentIdx * 0.05,
-                }}
-                style={{ display: 'inline-block' }}
-              >
-                {char}
-              </motion.span>
-            );
-          })}
-          {wordIndex !== words.length - 1 && (
-            <motion.span
-              initial={{ opacity: 0, y: 20, rotateX: 90 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{
-                type: 'spring',
-                damping: 12,
-                stiffness: 100,
-                delay: delay + (charCount++) * 0.05,
-              }}
-              style={{ display: 'inline-block' }}
-            >
-              &nbsp;
-            </motion.span>
-          )}
-        </span>
-      ))}
+      {words.map((word, wordIndex) => {
+        const wordContent = (
+          <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            {word.split('').map((char, charIndex) => {
+              const currentIdx = charCount++;
+              return (
+                <motion.span
+                  key={charIndex}
+                  initial={{ opacity: 0, y: 20, rotateX: 90 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{
+                    type: 'spring',
+                    damping: 12,
+                    stiffness: 100,
+                    delay: delay + currentIdx * 0.05,
+                  }}
+                  style={{ display: 'inline-block' }}
+                >
+                  {char}
+                </motion.span>
+              );
+            })}
+          </span>
+        );
+        // Increment charCount for the space to maintain timing rhythm
+        charCount++; 
+        return wordContent;
+      })}
     </span>
   );
 };
@@ -78,7 +67,7 @@ export const FadeUpWords = ({ text, className, delay = 0 }) => {
 
   return (
     <motion.span
-      style={{ display: 'inline-flex', flexWrap: 'wrap', overflow: 'hidden' }}
+      style={{ display: 'inline-flex', flexWrap: 'wrap' }}
       variants={container}
       initial="hidden"
       whileInView="visible"
