@@ -12,8 +12,8 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    const { name, email, message } = formData;
+    window.location.href = `mailto:ankitakaranjgm@gmail.com?subject=Contact from ${name}&body=${message}%0D%0A%0D%0AReply to: ${email}`;
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -61,7 +61,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm uppercase tracking-widest text-dark-text/50 font-medium mb-1">Email</p>
-                  <p className="text-lg text-dark-text font-medium">ankitakaranj@gmail.com</p>
+                  <p className="text-lg text-dark-text font-medium">ankitakaranjgm@gmail.com</p>
                 </div>
               </div>
 
@@ -114,7 +114,7 @@ const Contact = () => {
                   required
                   className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" "
                 />
-                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
+                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 pointer-events-none">
                   Your Name
                 </label>
               </div>
@@ -128,7 +128,7 @@ const Contact = () => {
                   required
                   className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer" placeholder=" "
                 />
-                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
+                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 pointer-events-none">
                   Email Address
                 </label>
               </div>
@@ -142,7 +142,7 @@ const Contact = () => {
                   required
                   className="block py-4 px-0 w-full text-lg text-dark-text bg-transparent border-0 border-b-2 border-dark-text/20 appearance-none focus:outline-none focus:ring-0 focus:border-warm-brown peer resize-none custom-scrollbar" placeholder=" "
                 />
-                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">
+                <label className="peer-focus:font-medium absolute text-lg text-dark-text/50 duration-300 transform -translate-y-8 scale-75 top-4 z-10 origin-[0] peer-focus:left-0 peer-focus:text-warm-brown peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 pointer-events-none">
                   Message
                 </label>
               </div>
@@ -196,7 +196,7 @@ const Contact = () => {
               </div>
               <div className="flex flex-col text-left">
                 <p className="text-[10px] uppercase tracking-widest text-dark-text/50 font-bold mb-[2px]">Email</p>
-                <p className="text-[13px] text-dark-text font-bold">ankitakaranj@gmail.com</p>
+                <p className="text-[13px] text-dark-text font-bold">ankitakaranjgm@gmail.com</p>
               </div>
             </motion.div>
 
@@ -231,14 +231,14 @@ const Contact = () => {
             <motion.a whileTap={{ scale: 0.9 }} href="https://www.linkedin.com/in/ankita-karan-440b65347" target="_blank" rel="noreferrer" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-[#0077b5] hover:text-white">
               <FaLinkedin size={20} />
             </motion.a>
-            <motion.a whileTap={{ scale: 0.9 }} href="mailto:ankitakaranj@gmail.com" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-warm-brown hover:text-white">
+            <motion.a whileTap={{ scale: 0.9 }} href="mailto:ankitakaranjgm@gmail.com" className="w-[48px] h-[48px] rounded-full bg-white shadow-sm border border-dark-text/10 text-dark-text flex items-center justify-center transition-colors hover:bg-warm-brown hover:text-white">
               <Mail size={20} />
             </motion.a>
           </div>
 
           {/* Button */}
           <motion.a 
-            href="mailto:ankitakaranj@gmail.com"
+            href="mailto:ankitakaranjgm@gmail.com"
             whileTap={{ scale: 0.98 }}
             className="w-full h-[54px] bg-dark-text text-cream rounded-[20px] font-bold tracking-widest uppercase text-[12px] mt-[24px] shadow-lg flex items-center justify-center transition-colors hover:bg-warm-brown"
           >

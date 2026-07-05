@@ -86,10 +86,10 @@ const journeyNodes = [
     angle: 198, // Left slightly up (10 o'clock)
     card: {
       category: 'UI/UX DESIGN',
-      role: 'CREATIVE DESIGN',
-      company: 'Figma & Prototyping',
-      period: 'Experience',
-      description: 'Created modern UI/UX designs, prototypes, and responsive user experiences with focus on aesthetics.',
+      role: 'UI/UX DESIGNER',
+      company: 'Parot.dev',
+      period: 'Present',
+      description: 'Working as a UI/UX Designer at Parot.dev, creating modern designs, prototypes, and responsive user experiences with a focus on aesthetics.',
       focusAreas: [
         'Wireframing',
         'Prototyping',

@@ -233,8 +233,8 @@ const Footer = () => {
             <ul className="space-y-4 flex flex-col items-center md:items-start">
               <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
                 <Mail size={14} className="text-[var(--color-warm-brown)] shrink-0" />
-                <a href="mailto:ankitakaranj@gmail.com" className="hover:text-cream transition-colors hover-target">
-                  ankitakaranj@gmail.com
+                <a href="mailto:ankitakaranjgm@gmail.com" className="hover:text-cream transition-colors hover-target">
+                  ankitakaranjgm@gmail.com
                 </a>
               </li>
               <li className="flex items-center justify-center md:justify-start gap-3 text-sm text-cream/50">
@@ -322,9 +322,9 @@ const Footer = () => {
           transition={{ delay: 0.2 }}
           className="flex flex-col items-center gap-[8px]"
         >
-          <a href="mailto:ankitakaranj@gmail.com" className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter hover:text-cream">
+          <a href="mailto:ankitakaranjgm@gmail.com" className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter hover:text-cream">
             <Mail size={12} className="text-[var(--color-warm-brown)]" />
-            <span>ankitakaranj@gmail.com</span>
+            <span>ankitakaranjgm@gmail.com</span>
           </a>
           <a href="tel:+918250930522" className="flex items-center gap-[8px] text-[12px] text-cream/50 font-inter hover:text-cream">
             <Phone size={12} className="text-[var(--color-warm-brown)]" />
