@@ -247,14 +247,14 @@ const Projects = () => {
 
       {/* ═══ MOBILE ═══ */}
       <div className="w-full mx-auto px-[20px] py-[30px] relative z-10 md:hidden">
-        <div className="mb-[40px] text-center">
+        <div className="mb-[40px] flex flex-col items-center text-center">
           <p className="font-inter text-[14px] uppercase tracking-[0.2em] text-[#8B0000] mb-[8px] font-bold">
             MY WORK
           </p>
-          <h2 className="font-playfair text-[30px] text-[#332828] font-bold mb-[16px] leading-tight">
+          <h2 className="font-playfair text-[30px] text-[#332828] font-bold mb-[16px] leading-tight w-full flex justify-center">
             <RevealCharacters text="Featured Projects" />
           </h2>
-          <div className="h-[2px] bg-[#8B0000]/20 mx-auto w-[80px] mb-[24px]" />
+          <div className="h-[2px] bg-[#8B0000]/20 w-[80px] mb-[24px]" />
           <p className="font-inter text-[14px] text-[#332828]/80 leading-[1.6]">
             Here are some of the projects I've built using modern web technologies. Each project focuses on solving real-world problems with clean design and great user experience.
           </p>
